@@ -1,4 +1,4 @@
-# HIP Template
+# HIP Template [![ubuntu-focal](https://github.com/neoblizz/HIP_template/actions/workflows/ubuntu-focal.yml/badge.svg)](https://github.com/neoblizz/HIP_template/actions/workflows/ubuntu-focal.yml) [![ubuntu-jammy](https://github.com/neoblizz/HIP_template/actions/workflows/ubuntu-jammy.yml/badge.svg)](https://github.com/neoblizz/HIP_template/actions/workflows/ubuntu-jammy.yml)
 
 A template inspired by [@Ahdhn](https://github.com/Ahdhn)'s [CUDATemplate](https://github.com/Ahdhn/CUDATemplate) to start a new HIP project using CMake on Linux. Note when HIP/ROCm is publicly made available on Windows and Windows Subsystem for Linux (WSL), I will update this template to reflect the support for that as well. This template provides a simple, easy-to-modify CMake file, with GitHub Actions pre-configured to build check-ins and test if the compilation succeeds.
 
@@ -7,7 +7,7 @@ A template inspired by [@Ahdhn](https://github.com/Ahdhn)'s [CUDATemplate](https
 ```bash
 python3 -m pip install 'cmake==3.24.0'
 ```
-- ROCM/HIP recommended version 5.4.x or above. Installation instructions vary, please refer to the [How to Install ROCm](https://docs.amd.com/bundle/ROCm-Installation-Guide-v5.4.2/page/How_to_Install_ROCm.html). The following is an example of how to install ROCm 5.4.x, HIP and some useful libraries on an Ubuntu 22.04 system using `apt-get`:
+- ROCm/HIP recommended version 5.4.x or above. Installation instructions vary, please refer to the [How to Install ROCm](https://docs.amd.com/bundle/ROCm-Installation-Guide-v5.4.2/page/How_to_Install_ROCm.html). The following is an example of how to install ROCm 5.4.x, HIP and some useful libraries on an Ubuntu 22.04 system using `apt-get`:
 ```bash
 sudo apt-get update
 curl -fsSL https://repo.radeon.com/rocm/rocm.gpg.key | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/rocm-keyring.gpg
@@ -45,6 +45,23 @@ make -j$(nproc)
 This will generate the example executable in `bin` directory under `build`, which can be executed like so:
 ```
 ./bin/hello
+```
+
+## Directory Structure
+This template follows a standard C++ library's directory structure. Important directories are `library/src` for source files, `library/include` for library includes, `examples` for a simple "hello world" example that uses the library, and `unittests` for GoogleTests based testing framework.
+```
+.
+├── CMakeLists.txt
+├── README.md
+├── cmake
+├── examples
+├── externals
+├── library
+│   ├── include
+│   └── src
+├── scripts
+│   └── format.sh
+└── unittests
 ```
 
 # License & Maintainer
