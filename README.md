@@ -46,3 +46,7 @@ This will generate the example executable in `bin` directory under `build`, whic
 ```
 ./bin/hello
 ```
+
+# License & Maintainer
+- This work is **Unlicensed**. A license with no conditions whatsoever which dedicates works to the public domain. Unlicensed works, modifications, and larger works may be distributed under different terms and without source code.
+- Maintained by [Muhammad Osama](https://github.com/neoblizz) \<muhammad.osama@amd.com\>
