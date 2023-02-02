@@ -64,6 +64,6 @@ This template follows a standard C++ library's directory structure. Important di
 └── unittests
 ```
 
-# License & Maintainer
+## License & Maintainer
 - This work is **Unlicensed**. A license with no conditions whatsoever which dedicates works to the public domain. Unlicensed works, modifications, and larger works may be distributed under different terms and without source code.
 - Maintained by [Muhammad Osama](https://github.com/neoblizz) \<muhammad.osama@amd.com\>
