@@ -1,0 +1,58 @@
+name: ubuntu-focal
+
+# Controls when the workflow will run
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+env:
+  BUILD_TYPE: Release
+  ARCHITECTURES: gfx908
+  ROCM_PATH: /opt/rocm
+  HIP_PATH: /opt/rocm/hip
+  ROCM_VERSION: 5.4
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # https://github.blog/changelog/2021-02-08-github-actions-skip-pull-request-and-push-workflows-with-skip-ci/
+    if: "!contains(github.event.commits[0].message, '[skip build]')"
+    runs-on: ubuntu-20.04
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Install ROCM/HIP
+        run: |
+          sudo apt-get update &&
+          sudo apt-get install -y software-properties-common wget gnupg2 &&
+          curl -fsSL https://repo.radeon.com/rocm/rocm.gpg.key | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/rocm-keyring.gpg
+          echo 'deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/rocm-keyring.gpg] https://repo.radeon.com/rocm/apt/${{env.ROCM_VERSION}} focal main' | sudo tee /etc/apt/sources.list.d/rocm.list &&
+          echo -e 'Package: *\nPin: release o=repo.radeon.com\nPin-Priority: 600' | sudo tee /etc/apt/preferences.d/rocm-pin-600 &&
+          sudo apt update &&
+          sudo apt-get install -y build-essential python3-pip clang g++ rocm-dev hip-dev rocm-libs &&
+          python3 -m pip install --upgrade pip &&
+          python3 -m pip install 'cmake==3.24.0'
+
+      # Configure PATH for ROCM
+      - name: Configure Environment
+        run: |
+          echo "PATH=$HOME/.local/bin:${{env.ROCM_PATH}}/bin:${{env.HIP_PATH}}/bin:$PATH" >> $GITHUB_PATH &&
+          echo "LD_LIBRARY_PATH=${{env.ROCM_PATH}}:${{env.HIP_PATH}}:/usr/local/lib:${LD_LIBRARY_PATH}" >> $GITHUB_ENV
+        
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      
+      # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
+      # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
+      - name: Configure cmake
+        run: cmake -B ${{github.workspace}}/build -D HELLO_HIP_BUILD_TESTS=ON -D CMAKE_HIP_ARCHITECTURES=${{env.ARCHITECTURES}} -D CMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+        
+      # Build your program with the given configuration
+      - name: Build all applications
+        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
