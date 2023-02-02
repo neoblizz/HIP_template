@@ -1,6 +1,6 @@
 # HIP Template
 
-A template inspired by @Ahdhn's [CUDATemplate](https://github.com/Ahdhn/CUDATemplate) to start a new HIP project using CMake on Linux. Note when HIP/ROCm is publicly made available on Windows and Windows Subsystem for Linux (WSL), I will update this template to reflect the support for that as well. This template provides a simple, easy-to-modify CMake file, with GitHub Actions pre-configured to build check-ins and test if the compilation succeeds.
+A template inspired by [@Ahdhn](https://github.com/Ahdhn)'s [CUDATemplate](https://github.com/Ahdhn/CUDATemplate) to start a new HIP project using CMake on Linux. Note when HIP/ROCm is publicly made available on Windows and Windows Subsystem for Linux (WSL), I will update this template to reflect the support for that as well. This template provides a simple, easy-to-modify CMake file, with GitHub Actions pre-configured to build check-ins and test if the compilation succeeds.
 
 ## Installing Requirements
 - `cmake` required minimum version 2.24.x:
