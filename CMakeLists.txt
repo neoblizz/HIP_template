@@ -143,5 +143,5 @@ option(HELLO_HIP_BUILD_TESTS
 # Subdirectories for examples, testing and documentation
 if(HELLO_HIP_BUILD_TESTS)
   include(${PROJECT_SOURCE_DIR}/cmake/FetchGoogleTest.cmake)
-#   add_subdirectory(unittests)
+  add_subdirectory(unittests)
 endif(HELLO_HIP_BUILD_TESTS)
