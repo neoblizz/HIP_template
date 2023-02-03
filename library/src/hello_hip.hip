@@ -2,7 +2,7 @@
 #include <hello_hip.hxx>
 
 __global__ void hello_hip() {
-  printf("Hello World\n");
+  printf("Hello World!\n");
 }
 
 void launch_hello_hip() {

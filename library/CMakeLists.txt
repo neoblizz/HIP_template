@@ -4,16 +4,6 @@
 set(HELLO_HIP_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 include(src/CMakeLists.txt)
 
-####################################################
-############### SET SM ARCHITECTURE ################
-####################################################
-
-## Note: This applies to NVBench as well.
-## Can be used for applications by extracting the
-## HIP_ARCHITECTURES property from hello_hip project.
-## see: get_target_properties()
-## see: https://github.com/RadeonOpenCompute/rocminfo/blob/master/rocm_agent_enumerator#L12
-set(CMAKE_HIP_ARCHITECTURES gfx908)
 
 add_library(hello_hip ${HELLO_HIP_SOURCE})
 

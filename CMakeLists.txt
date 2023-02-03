@@ -53,6 +53,17 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 
 ####################################################
+############### SET SM ARCHITECTURE ################
+####################################################
+
+## Note: This applies to NVBench as well.
+## Can be used for applications by extracting the
+## HIP_ARCHITECTURES property from hello_hip project.
+## see: get_target_properties()
+## see: https://github.com/RadeonOpenCompute/rocminfo/blob/master/rocm_agent_enumerator#L12
+set(CMAKE_HIP_ARCHITECTURES gfx908)
+
+####################################################
 ############## SET CXX & HIP FLAGS ################
 ####################################################
 set(CXX_FLAGS 
@@ -79,7 +90,6 @@ set(CXX_FLAGS
 )
 
 set(HIP_FLAGS
-  --offload-arch=${CMAKE_HIP_ARCHITECTURES}
   # -fgpu-sanitize          # Enable sanitizer for AMDGPU target
   # -mamdgpu-ieee           # Sets the IEEE bit in the expected default floating point  mode register. 
                             # Floating point opcodes that support exception flag gathering quiet and 
